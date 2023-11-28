@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <form action="/uploadfile/" method="post" enctype="multipart/form-data">
+        <label for="file">Choose a file:</label>
+        <input type="file" name="file" id="file" accept="image/*">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/templates/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        
+    </header>
+    <main>
+        <div class="con_logo">
+            <img src="/templates/img/logo.png" alt="로고"> 
+        </div>
+        <div class="content">
+            <input type="text" placeholder="정리를 원하는 폴더를 올려주세요">
+            <!-- 파일 업로드 버튼 -->
+            <label for="fileInput">
+                <button onclick="uploadFile()">Upload</button>
+            </label>
+            <!-- 파일 업로드 입력 필드 -->
+            <input type="file" id="fileInput" style="display: none;">
+        </div>
+
+        <script>
+            function uploadFile() {
+                document.getElementById("fileInput").click();
+            }
+        </script>
+    </main>
+</body>
+</html>

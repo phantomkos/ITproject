@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/templates/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <img src="/templates/img/logo.png" alt="로고">
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+    <form class="dropzone needsclick" id="demo-upload" action="/uploadfile" enctype="multipart/form-data">
+        <div class="dz-message needsclick">
+            업로드할 파일을 선택하세요<br>
+            <span class="note needsclick"></span>
+        </div>
+        
+    </form>
+    <button type="button" onclick="uploadFiles()">Upload</button>
+    </div>
+    <section id="image-section">    
+        <div class="image-list" id="image-list">
+            {% for image in images %}
+                <div class="image-item">
+                    <img src="/image/{{ image.id }}" alt="{{ image.category }}" style="max-width: 200px; height: auto;">
+                </div>
+                {% if loop.index % 4 == 0 %}</div><div class="image-row">{% endif %}
+            {% endfor %}
+                </div>
+            </section>
+
+            
+
+            
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script>
+        if (typeof Dropzone !== 'undefined') {
+            var dropzone = new Dropzone('#demo-upload', {
+                autoProcessQueue: false,
+                parallelUploads: 10,
+            });
+
+            function uploadFiles() {
+                dropzone.processQueue();
+            }
+        } else {
+            console.error('Dropzone library is not loaded.');
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const imageList = document.getElementById("image-list");
+            const loader = document.getElementById("loader");
+
+            function loadMoreImages() {
+                loader.style.display = "block";
+
+                // 서버에서 추가 이미지를 가져오는 비동기 요청 수행
+
+                // 가져오기가 완료되면 loader를 숨깁니다.
+                loader.style.display = "none";
+            }
+
+            function checkScroll() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.offsetHeight;
+
+                if (scrollTop + windowHeight >= documentHeight - 200) {
+                    loadMoreImages();
+                }
+            }
+
+            window.addEventListener("scroll", checkScroll);
+        });
+    </script>
+
+
+            
+        </div>
+    </main>
+    <script>
+
+if (typeof Dropzone !== 'undefined') {
+        var dropzone = new Dropzone('#demo-upload', {
+            previewTemplate: document.querySelector('#preview-template').innerHTML,
+            parallelUploads: 2,
+            thumbnailHeight: 120,
+            thumbnailWidth: 120,
+            maxFilesize: 3,
+            filesizeBase: 1000,
+            thumbnail: function(file, dataUrl) {
+            if (file.previewElement) {
+                file.previewElement.classList.remove("dz-file-preview");
+                var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                for (var i = 0; i < images.length; i++) {
+                var thumbnailElement = images[i];
+                thumbnailElement.alt = file.name;
+                thumbnailElement.src = dataUrl;
+                }
+                setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
+            }
+            }
+        
+        });
+        
+        
+        // Now fake the file upload, since GitHub does not handle file uploads
+        // and returns a 404
+        
+        var minSteps = 6,
+            maxSteps = 60,
+            timeBetweenSteps = 100,
+            bytesPerStep = 100000;
+        
+        dropzone.uploadFiles = function(files) {
+            var self = this;
+        
+            for (var i = 0; i < files.length; i++) {
+        
+            var file = files[i];
+            totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+        
+            for (var step = 0; step < totalSteps; step++) {
+                var duration = timeBetweenSteps * (step + 1);
+                setTimeout(function(file, totalSteps, step) {
+                return function() {
+                    file.upload = {
+                    progress: 100 * (step + 1) / totalSteps,
+                    total: file.size,
+                    bytesSent: (step + 1) * file.size / totalSteps
+                    };
+        
+                    self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                    if (file.upload.progress == 100) {
+                    file.status = Dropzone.SUCCESS;
+                    self.emit("success", file, 'success', null);
+                    self.emit("complete", file);
+                    self.processQueue();
+                    //document.getElementsByClassName("dz-success-mark").style.opacity = "1";
+                    }
+                };
+                }(file, totalSteps, step), duration);
+            }
+            }
+        }
+
+    } else {
+        console.error('Dropzone 라이브러리가 로드되지 않았습니다.');
+    }
+
+    </script>
+</body>
+</html>

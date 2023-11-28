@@ -1,0 +1,116 @@
+
+*{
+    
+    padding: 0;
+    margin: 0 auto;
+    
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/* header */
+
+header{
+    background: #98B1F6;
+    height: 70px;
+}
+
+.logo{
+    text-align: center;
+    padding-block: 15px;
+}
+
+
+
+/* main */
+
+main{
+    width: 100%;
+    height: 90vh;
+    position: relative;
+}
+
+.con_logo{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.content{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.content input{
+    width: 40vw;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+
+
+.content button{
+    position: absolute;
+    right: 50%;
+    transform: translate(50%, -65%);
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    background: #5F83B9;
+    border: none;
+    color: white;
+    font-family: 'Inika', serif;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.loader {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-row {
+    display: flex;
+    margin-bottom: 20px; /* 각 행 사이의 간격을 조절하세요 */
+}
+
+.image-item {
+    margin-right: 20px; /* 각 이미지 사이의 간격을 조절하세요 */
+}
+
+#image-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    margin: 10px;
+}
+
+
+#demo-upload {
+    display: flex;
+    align-items: center;
+}
+
+.dz-message {
+    flex: 1; /* Allow the message to grow and take available space */
+}
+
+button {
+    display: block;
+    margin: 0 auto; /* Center the button */
+    padding: 10px 20px; /* Adjust padding to increase size */
+}
