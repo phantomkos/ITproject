@@ -27,7 +27,7 @@ app.mount("/templates", StaticFiles(directory="templates"), name="templates")
 
 model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-labels = ["person", "landscape", "animal", "food", "document", "something else"]
+labels = ["human", "landscape", "animal", "food", "document", "something else"]
 
 # Dependency to get the database session
 def get_db():
@@ -81,8 +81,41 @@ async def read_image(image_id: int, db: Session = Depends(get_db)):
         return StreamingResponse(io.BytesIO(image.image_data), media_type="image/jpg")
     raise HTTPException(status_code=404, detail="Image not found")
 
-# @app.get("/person")
-# async def read_person(request: Request, db: Session = Depends(get_db)):
-#     # 데이터베이스에서 이미지 목록 가져오기
-#      images = db.query(Image).filter(Image.category == "person").all()
-#     return templates.TemplateResponse("person.html", {"request": request, "images": images})
+@app.get("/human")
+async def read_human(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "human").all()
+    return templates.TemplateResponse("human.html", {"request": request, "images": images})
+
+@app.get("/animal")
+async def read_animal(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "animal").all()
+    return templates.TemplateResponse("animal.html", {"request": request, "images": images})
+
+@app.get("/food")
+async def read_food(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "food").all()
+    return templates.TemplateResponse("food.html", {"request": request, "images": images})
+
+
+@app.get("/document")
+async def read_document(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "document").all()
+    return templates.TemplateResponse("document.html", {"request": request, "images": images})
+
+
+@app.get("/landscape")
+async def read_landscape(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "landscape").all()
+    return templates.TemplateResponse("landscape.html", {"request": request, "images": images})
+
+
+@app.get("/something")
+async def read_something(request: Request, db: Session = Depends(get_db)):
+   # 데이터베이스에서 이미지 목록 가져오기
+    images = db.query(Image).filter(Image.category == "something else").all()
+    return templates.TemplateResponse("something.html", {"request": request, "images": images})
