@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        #folders-container {
+            display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
+        }
+
+        button {
+            display: inline-block; /* 각 버튼을 인라인 블록으로 설정 */
+            margin-right: 10px; /* 각 버튼 사이에 간격을 주기 위한 마진 설정 */
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -19,6 +29,11 @@
     <main>
         <div id="folders-container">
             <button id="personButton">사람</button>
+            <button id="animalButton">동물</button>
+            <button id="foodButton">음식</button>
+            <button id="documentButton">문서</button>
+            <button id="landscapeButton">풍경</button>
+            <button id="somethingButton">기타</button>
         </div>
         <form class="dropzone needsclick" id="demo-upload" action="/uploadfile" enctype="multipart/form-data">
             <div class="dz-message needsclick">
@@ -32,10 +47,13 @@
                     <div class="image-item">
                         <img src="/image/{{ image.id }}" alt="{{ image.category }}" style="max-width: 200px; height: auto;">
                     </div>
-                    {% if loop.index % 4 == 0 %}</div><div class="image-row">{% endif %}
+                {% if loop.index % 4 == 0 %}
+            </div>
+            <div class="image-row">
+                {% endif %}
                 {% endfor %}
-                    </div>
-                </section>
+            </div>
+        </section>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -43,8 +61,38 @@
             const personButton = document.getElementById('personButton');
             personButton.addEventListener('click', function() {
                 // 'person.html'로 이동
-                window.location.href = '/templates/person.html';
+                window.location.href = 'http://127.0.0.1:8000/person';
             });
+            const animalButton = document.getElementById('animalButton');
+            animalButton.addEventListener('click', function() {
+                // 'animal.html'로 이동
+                window.location.href = 'http://127.0.0.1:8000/animal';
+            });
+            const foodButton = document.getElementById('foodButton');
+            foodButton.addEventListener('click', function() {
+                // 'animal.html'로 이동
+                window.location.href = 'http://127.0.0.1:8000/food';
+            });
+            const documentButton = document.getElementById('documentButton');
+            documentButton.addEventListener('click', function() {
+                // 'animal.html'로 이동
+                window.location.href = 'http://127.0.0.1:8000/document';
+            });
+            const landscapeButton = document.getElementById('landscapeButton');
+            landscapeButton.addEventListener('click', function() {
+                // 'animal.html'로 이동
+                window.location.href = 'http://127.0.0.1:8000/landscape';
+            });
+
+            const somethingButton = document.getElementById('somethingButton');
+            somethingButton.addEventListener('click', function() {
+                // 'animal.html'로 이동
+                window.location.href = 'http://127.0.0.1:8000/something';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // 'personButton' 버튼을 클릭할 때의 동작 정의
+            
         });
     </script>
     <script>

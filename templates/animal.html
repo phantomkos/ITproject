@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Page</title>
+    <link rel="stylesheet" href="/templates/style.css">
+</head>
+<body>
+    <main>
+        <div id="folders-container">
+            <a href="http://127.0.0.1:8000"><button>돌아가기</button></a>
+        </div>
+        <section id="image-section">    
+            <div class="image-list" id="image-list">
+                {% for image in images %}
+                    <div class="image-item">
+                        <img src="/image/{{ image.id }}" alt="Person Image" style="max-width: 200px; height: auto;">
+                    </div>
+                    {% if loop.index % 4 == 0 %}</div><div class="image-row">{% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
